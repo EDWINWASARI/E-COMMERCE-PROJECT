@@ -23,6 +23,7 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              {% if request.user.is_authenticated %}
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/">Home</a>
               </li>
@@ -42,10 +43,10 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white"  href="#">About Us</a>
+                <a class="nav-link text-white"  href="{% url 'about' %}">About Us</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white"  href="#">Contact Us</a>
+                <a class="nav-link text-white"  href="{% url 'contact' %}">Contact Us</a>
               </li>
             </ul>
             <form class="d-flex" role="search">
@@ -53,17 +54,16 @@
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
           </div>
-
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item dropdown mx-2">
               <a class="nav-link dropdown-toggle text-white" href="#"
               id="profileDropdown" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">Edwin</a>
               <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-                <li><a class="dropdown-item"  href="#">Profile</a></li>
+                <li><a class="dropdown-item"  href="{% url 'profile' %}">Profile</a></li>
                 <li><a class="dropdown-item"  href="#">Orders</a></li>
-                <li><a class="dropdown-item"  href="#">Change Password</a></li>
-                <li><a class="dropdown-item"  href="#">Logout</a></li>
+                <li><a class="dropdown-item"  href="{% url 'passwordchange' %}">Change Password</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>                 
               </ul>
             </li>
             <li class="nav-item mx-2">
@@ -72,12 +72,14 @@
             <li class="nav-item mx-2">
               <a href="#" class="nav-link text-white">Wishlist</a>
             </li>
+            {% else %}
             <li class="nav-item mx-2">
-              <a href="#" class="nav-link text-white">Login</a>
+              <a href="{% url 'login' %}" class="nav-link text-white">Login</a>
             </li>
             <li class="nav-item mx-2">
-              <a href="#" class="nav-link text-white">Registration</a>
+            <a href="{% url 'customerregistration' %}" class="nav-link text-white">Registration</a>
             </li>
+            {% endif %}
           </ul>
         </div>
       </nav>
@@ -85,6 +87,7 @@
       {% block banner_slider %}{% endblock banner_slider %}
       {% block information %}{% endblock information %}
       {% block main-content %}{% endblock main-content %}
+      {% block payment-gateway %}{% endblock payment-gateway %}
 
       <footer class="container-fluid fixed-bottom bg-success text-center p-2 mt-5">
         Copyright : 2024 || Developed by : Edwin Wasari
@@ -96,9 +99,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    <script script="{% static 'app/js/owl.carousel.min.js' %}"></script>
-    <script script="{% static 'app/js/all.min.js' %}"></script>
-    <script script="{% static 'app/js/myscript.js' %}"></script>
+    <script src="{% static 'app/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'app/js/all.min.js' %}"></script>
+    <script src="{% static 'app/js/myscript.js' %}"></script>
 
     
 </body>
